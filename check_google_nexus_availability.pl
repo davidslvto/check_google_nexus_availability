@@ -5,9 +5,10 @@ use strict;
 use warnings;
 
 use WWW::Mechanize;
+use WebService::Prowl;
 
 my $debug = 1;
-
+my $api_key = '';
 # Im only checking the ones I want
 my $url = {
     nexus_4_8gb => 'https://play.google.com/store/devices/details?id=nexus_4_8gb',
@@ -27,5 +28,10 @@ for my $version (keys $url) {
 sub version_available {
     my $version = shift;
     # notify here
+    my $ws = WebService::Prowl->new(apikey => $api_key);
+    $ws->verify || die $ws->error();
+    $ws->add(   application => "Google Nexus Notif",
+                event       => $version,
+                description => "Still nothing..." );
     print $version if $debug;
 }
