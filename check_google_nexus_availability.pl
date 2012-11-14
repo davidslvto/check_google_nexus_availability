@@ -6,6 +6,10 @@ use warnings;
 
 use WWW::Mechanize;
 use WebService::Prowl;
+use DateTime;
+
+my $dt = DateTime->now();
+my $ts = $dt->hms; # hh:mm:ss
 
 my $debug = 1;
 my $api_key = '';
@@ -36,7 +40,7 @@ sub version_not_available {
     my $ws = WebService::Prowl->new(apikey => $api_key);
     $ws->verify || die $ws->error();
     $ws->add(   application => "Google Nexus Notif",
-                event       => $version,
+                event       => "$version @ $ts",
                 description => "Still nothing..." );
     print $version . "\n" if $debug;
 }
@@ -47,7 +51,7 @@ sub version_available {
     my $ws = WebService::Prowl->new(apikey => $api_key);
     $ws->verify || die $ws->error();
     $ws->add(   application => "Google Nexus Notif",
-                event       => $version,
-                description => "IT'S ALIVE!" );
+                event       => "$version @ $ts",
+                description => "AVAILABLE!" );
     print $version . "\n" if $debug;
 }
