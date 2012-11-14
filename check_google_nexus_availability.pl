@@ -28,7 +28,7 @@ foreach my $version (keys %{$url} ) {
     $mech->get($url->{$version}) or die;
     my $html = $mech->content;
     if ( $html =~ /agotado/i ) {
-        versioni_not_available($version);
+        version_not_available($version);
     } else {
         version_available($version);
     }
