@@ -19,10 +19,11 @@ my $url = {
 
 my $mech = WWW::Mechanize->new( cookie_jar => {} );
 $mech->agent_alias('Windows Mozilla');
-for my $version (keys $url) {
-    $mech->get($url->{$version}) or die;
-    my $html = $mech->content;
-    version_available($version) if ( $html =~ /agotado/i );
+foreach my $version (keys $url) {
+    print 'URL => ' . $url->{$version} . "\n";
+#    $mech->get($url->{$version}) or die;
+#    my $html = $mech->content;
+#    version_available($version) if ( $html =~ /agotado/i );
 }
 
 sub version_available {
