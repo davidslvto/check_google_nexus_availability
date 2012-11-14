@@ -19,7 +19,7 @@ my $url = {
 
 my $mech = WWW::Mechanize->new( cookie_jar => {} );
 $mech->agent_alias('Windows Mozilla');
-foreach my $version (keys $url) {
+foreach my $version (keys %{$url} ) {
     print 'URL => ' . $url->{$version} . "\n";
 #    $mech->get($url->{$version}) or die;
 #    my $html = $mech->content;
